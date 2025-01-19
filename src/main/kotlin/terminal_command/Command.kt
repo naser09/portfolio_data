@@ -57,7 +57,7 @@ data class Command(
                 )
             ),
             Command(
-                command = "project",
+                command = "projects",
                 description = "Get my project list from backend",
                 category = "data",
                 arguments = listOf(
