@@ -41,6 +41,20 @@ data class Command(
                 )
             ),
             Command(
+                command = "about",
+                description = "Get information about abu naser.",
+                category = "data",
+                arguments = listOf(
+                    "info (default)",
+                    "skill",
+                    "-n (Numeric list style)"
+                ),
+                examples = listOf(
+                    "echo Hello World",
+                    "echo -n \"No newline\""
+                )
+            ),
+            Command(
                 command = "clear",
                 description = "Clear terminal screen",
                 category = "system",
