@@ -17,8 +17,7 @@ data class Academic(
     val verifyResultLink: String
 ){
     companion object{
-        val academics = lazy {
-            listOf(
+        val academics = listOf(
                 Academic(
                     years = "2018-2021",
                     name = "Diploma in Computer Technology",
@@ -53,7 +52,6 @@ data class Academic(
                     verifyResultLink = "http://www.educationboardresults.gov.bd"
                 )
             )
-        }
         fun createJsonFile(){
             val data = Json.encodeToString(academics)
             val file = File("academic.json")
