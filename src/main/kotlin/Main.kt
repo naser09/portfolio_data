@@ -6,6 +6,7 @@ import terminal_command.Command
 import youtube.VideoItem
 
 fun main() {
+//    Command.createJsonFile()
     Command.createJsonFile()
     VideoItem.createJsonFile()
     Project.createJsonFile()

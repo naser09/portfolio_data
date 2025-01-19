@@ -1,37 +1,193 @@
 package terminal_command
 
+import academic.Academic.Companion.academics
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
 import java.io.File
 
 @Serializable
 data class Command(
-    val name: String,
-    val description: String
+    val command: String,
+    val description: String,
+    val category: String = "general",
+    val arguments: List<String> = emptyList(),
+    val examples: List<String> = emptyList(),
+    val response: String = "",
+    val errorResponse: String = "Command failed"
 ){
     companion object{
-        const val fullText ="Welcome to my portfolio! I'm a passionate self-taught Kotlin Multiplatform developer with a knack for building cross-platform apps that work seamlessly on Android, iOS, web, and desktop.\n" +
-                "\n" +
-                "Here, you’ll find projects that showcase my journey, skills, and dedication to creating efficient, user-friendly, and visually appealing applications. Whether it’s crafting intuitive UIs, optimizing backend logic, or exploring new technologies, I’m always eager to learn and improve.\n" +
-                "\n" +
-                "Feel free to explore my work and reach out if you’d like to collaborate or learn more about what I do!"
-
-        val commandsList = listOf(
-            Command("help", "Available commands: help, clear, about, projects, hi/hello"),
-            Command("hi", fullText),
-            Command("hello", fullText),
-            Command("about", "I'm a software developer passionate about Kotlin and Android development."),
-            Command("projects", "1. Project A - Android App\n2. Project B - Web Application"),
-            Command("clear", "CLEAR_COMMAND")
+        val commandsLists = listOf(
+            Command(
+                command = "help",
+                description = "Display help information for commands",
+                category = "system",
+                arguments = listOf("[command]"),
+                examples = listOf(
+                    "help",
+                    "help ls"
+                )
+            ),
+            Command(
+                command = "echo",
+                description = "Display text",
+                category = "system",
+                arguments = listOf(
+                    "text",
+                    "-n (no newline)"
+                ),
+                examples = listOf(
+                    "echo Hello World",
+                    "echo -n \"No newline\""
+                )
+            ),
+            Command(
+                command = "clear",
+                description = "Clear terminal screen",
+                category = "system",
+                examples = listOf("clear")
+            )
         )
-
         fun createJsonFile(){
-            val commands = Json.encodeToString(Command.commandsList)
-            val commandsFile = File("commands.json")
-            if (commandsFile.exists()){
-                commandsFile.delete()
+            val data = Json.encodeToString(commandsLists)
+            val file = File("commands.json")
+            if (file.exists()){
+                file.delete()
             }
-            commandsFile.writeText(commands)
+            file.writeText(data)
         }
     }
+}
+
+class TerminalSimulator {
+    private val commands = mutableMapOf<String, Command>()
+    init {
+        initializeCommands()
+    }
+
+    private fun initializeCommands() {
+        val commandsLists = listOf(
+            Command(
+                command = "help",
+                description = "Display help information for commands",
+                category = "system",
+                arguments = listOf("[command]"),
+                examples = listOf(
+                    "help",
+                    "help ls"
+                )
+            ),
+            Command(
+                command = "echo",
+                description = "Display text",
+                category = "system",
+                arguments = listOf(
+                    "text",
+                    "-n (no newline)"
+                ),
+                examples = listOf(
+                    "echo Hello World",
+                    "echo -n \"No newline\""
+                )
+            ),
+            Command(
+                command = "clear",
+                description = "Clear terminal screen",
+                category = "system",
+                examples = listOf("clear")
+            )
+        )
+        commandsLists.forEach { commands[it.command] = it }
+    }
+
+
+    fun executeCommand(input: String): String {
+        val parts = input.trim().split("\\s+".toRegex())
+        val commandName = parts[0].lowercase()
+        val args = if (parts.size > 1) parts.subList(1, parts.size) else emptyList()
+
+        return when (commandName) {
+            "help" -> handleHelp(args)
+            else -> {
+                val command = commands[commandName] ?: return "Command not found: $commandName"
+                when (commandName) {
+                    "echo" -> args.joinToString(" ")
+                    else -> command.response
+                }
+            }
+        }
+    }
+    private fun handleHelp(args: List<String>): String {
+        if (args.isEmpty()) {
+            return generateGeneralHelp()
+        }
+        val commandName = args[0]
+        val command = commands[commandName] ?: return "No help available for: $commandName"
+        return generateCommandHelp(command)
+    }
+    private fun generateGeneralHelp(): String {
+        return buildString {
+            appendLine("╔════ Terminal Command Help ════╗")
+            appendLine("║                              ║")
+
+            // Group commands by category
+            val categorizedCommands = commands.values.groupBy { it.category }
+
+            categorizedCommands.forEach { (category, cmds) ->
+                appendLine("║ ${category.uppercase()}:")
+                cmds.forEach { cmd ->
+                    appendLine("║  ${cmd.command.padEnd(10)} │ ${cmd.description}")
+                }
+                appendLine("║")
+            }
+
+            appendLine("║ For detailed help on any command:")
+            appendLine("║  help <command>")
+            appendLine("║")
+            appendLine("║ To see commands by category:")
+            appendLine("║  help --category <category>")
+            appendLine("╚══════════════════════════════╝")
+        }
+    }
+
+
+    private fun generateCommandHelp(command: Command): String {
+        return buildString {
+            appendLine("╔════ Command: ${command.command.uppercase()} ════╗")
+            appendLine("║")
+            appendLine("║ Description:")
+            appendLine("║   ${command.description}")
+            appendLine("║")
+            if (command.arguments.isNotEmpty()) {
+                appendLine("║ Arguments:")
+                command.arguments.forEach { arg ->
+                    appendLine("║   $arg")
+                }
+                appendLine("║")
+            }
+            if (command.examples.isNotEmpty()) {
+                appendLine("║ Examples:")
+                command.examples.forEach { example ->
+                    appendLine("║   $ $example")
+                }
+                appendLine("║")
+            }
+            appendLine("║ Category: ${command.category}")
+            appendLine("╚══════════════════════════════╝")
+        }
+    }
+}
+// Example usage:
+fun main() {
+    val terminal = TerminalSimulator()
+
+    println("=== General Help ===")
+    println(terminal.executeCommand("help"))
+
+    println("\n=== Category Help ===")
+    println(terminal.executeCommand("help --category files"))
+
+    println("\n=== Command Help ===")
+    println(terminal.executeCommand("help ls"))
+
+    println(terminal.executeCommand("echo my name is abu naser"))
 }
