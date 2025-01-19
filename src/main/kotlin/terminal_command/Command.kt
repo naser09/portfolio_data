@@ -45,13 +45,71 @@ data class Command(
                 description = "Get information about abu naser.",
                 category = "data",
                 arguments = listOf(
-                    "info (default)",
-                    "skill",
-                    "-n (Numeric list style)"
+                    "info      :(default)",
+                    "skill     : show skills ",
+                    "-n or n   : (Numeric list style). ",
+                    "-k or key : Show json key behind data .",
+                    "-i [number]     : Print item per line ."
                 ),
                 examples = listOf(
-                    "echo Hello World",
-                    "echo -n \"No newline\""
+                    "about -n -i 3 key",
+                    "about key n -i 3",
+                )
+            ),
+            Command(
+                command = "project",
+                description = "Get my project list from backend",
+                category = "data",
+                arguments = listOf(
+                    "-n or n   : (Numeric list style). ",
+                    "-k or key : Show json key behind data .",
+                    "-i [number]     : Print item per line ."
+                ),
+                examples = listOf(
+                    "project -n -i 3 key",
+                    "project key n -i 3",
+                )
+            ),
+            Command(
+                command = "video",
+                description = "Get my video json from backend",
+                category = "data",
+                arguments = listOf(
+                    "-n or n   : (Numeric list style). ",
+                    "-k or key : Show json key behind data .",
+                    "-i [number]     : Print item per line ."
+                ),
+                examples = listOf(
+                    "video -n -i 3 key",
+                    "video key n -i 3",
+                )
+            ),
+            Command(
+                command = "academic",
+                description = "Get my academic information from backend.",
+                category = "data",
+                arguments = listOf(
+                    "-n or n   : (Numeric list style). ",
+                    "-k or key : Show json key behind data .",
+                    "-i [number]     : Print item per line ."
+                ),
+                examples = listOf(
+                    "academic -n -i 3 key",
+                    "academic key n -i 3",
+                )
+            ),
+            Command(
+                command = "stacks",
+                description = "Get teh tech stacks list that i use from backend.",
+                category = "data",
+                arguments = listOf(
+                    "-n or n   : (Numeric list style). ",
+                    "-k or key : Show json key behind data .",
+                    "-i [number]     : Print item per line ."
+                ),
+                examples = listOf(
+                    "stacks -n -i 3 key",
+                    "stacks key n -i 3",
                 )
             ),
             Command(
