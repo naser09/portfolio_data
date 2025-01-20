@@ -80,7 +80,7 @@ data class Project(
             ),
             Project(
                 "Laravel 10 with multiple authentication & authorization .",
-                "A kotlin multiplatform mcq app that uses ktor backend and authenticate users .",
+                "A laravel 10 project showcasing my expertise in backend development .",
                 listOf("Laravel 10", "PostgreSQL", "Blade Template", "PHP" , "Tailwind Css" ,"npm"),
                 ProjectType.PET_PROJECT,
                 githubLink = "https://github.com/naser09/laravel10_multi_auth.git",
