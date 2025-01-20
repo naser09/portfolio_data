@@ -71,7 +71,7 @@ data class Command(
                 )
             ),
             Command(
-                command = "video",
+                command = "videos",
                 description = "Get my video json from backend",
                 category = "data",
                 arguments = listOf(

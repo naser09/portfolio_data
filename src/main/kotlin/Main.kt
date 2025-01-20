@@ -1,6 +1,7 @@
 import about.PersonalInfo
 import about.Skill
 import academic.Academic
+import core.Version
 import projects.Project
 import tech_stack.Technology
 import terminal_command.Command
@@ -15,6 +16,7 @@ fun main() {
     PersonalInfo.createJsonFile()
     Academic.createJsonFile()
     Skill.createJsonFile()
+    Version.createJsonFile()
     println("Completed")
     println("new line")
 }
