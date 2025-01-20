@@ -28,6 +28,15 @@ data class Command(
                 )
             ),
             Command(
+                command = "history",
+                description = "Display previous commands",
+                category = "system",
+                arguments = listOf(),
+                examples = listOf(
+                    "history"
+                )
+            ),
+            Command(
                 command = "echo",
                 description = "Display text",
                 category = "system",
@@ -117,6 +126,18 @@ data class Command(
                 description = "Clear terminal screen",
                 category = "system",
                 examples = listOf("clear")
+            ),
+            Command(
+                command = "hi",
+                description = "Show the welcome text",
+                category = "system",
+                examples = listOf("hi")
+            ),
+            Command(
+                command = "hello",
+                description = "Show the welcome text",
+                category = "system",
+                examples = listOf("hi")
             )
         )
         fun createJsonFile(){
