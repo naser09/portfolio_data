@@ -73,8 +73,9 @@ data class Project(
                 ProjectType.PET_PROJECT,
                 githubLink = "https://github.com/naser09/MCQ_KMP.git",
                 images = listOf(
-                    "projects/ktor1.png",
-                    "projects/ktor2.png"
+                    "https://images.pexels.com/photos/943096/pexels-photo-943096.jpeg",
+                    "https://images.pexels.com/photos/693859/pexels-photo-693859.jpeg",
+                    "https://images.pexels.com/photos/574071/pexels-photo-574071.jpeg"
                 )
             ),
             Project(
