@@ -28,6 +28,20 @@ data class Command(
                 )
             ),
             Command(
+                command = "kobweb",
+                description = "Display information about he kobweb framework.",
+                category = "system",
+                arguments = listOf(""),
+                examples = listOf(
+                    "kobweb"
+                ),
+                response = "Kobweb is a Kotlin-based framework for building modern web applications using Jetpack Compose " +
+                        "for Web. It simplifies full-stack development by integrating with Ktor for backend services " +
+                        "and supports features like routing, server-side rendering, and static site generation." +
+                        " With Compose-style UI development, Kobweb enables developers to create dynamic" +
+                        " and reactive web apps while leveraging Kotlin’s type safety and interoperability."
+            ),
+            Command(
                 command = "history",
                 description = "Display previous commands",
                 category = "system",
