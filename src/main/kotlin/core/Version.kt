@@ -15,7 +15,7 @@ data class Version(
                 encodeDefaults = true
                 ignoreUnknownKeys = true
             }
-            val data = json.encodeToString(Version(3,0))
+            val data = json.encodeToString(Version(4,0))
             val file = File("versions.json")
             if (file.exists()){
                 file.delete()
